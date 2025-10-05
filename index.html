@@ -357,80 +357,83 @@
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
         }
-        /* HARDWARE PROJECTS SECTION */
+ 
+/* Fix container centering */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* Hardware Section Styling */
 #hardware-projects {
   padding: 80px 0;
-  background-color: #0a0a0a;
-  color: #fff;
   text-align: center;
 }
 
 .hardware-intro h2 {
-  font-size: 2rem;
-  color: #ff0099;
+  font-size: 2em;
+  color: #ff4081; /* adjust to match your theme */
   margin-bottom: 10px;
 }
 
 .hardware-punchline {
-  font-size: 1rem;
-  color: #aaa;
-  margin-bottom: 50px;
+  font-size: 1.1em;
+  color: #bbb;
+  margin-bottom: 40px;
 }
 
+/* Grid layout fix */
 .hardware-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  justify-items: stretch; /* ensures items stretch evenly across the row */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
   align-items: start;
+  justify-items: center;
 }
 
-
+/* Individual project cards */
 .hardware-item {
-  background: #111;
-  border-radius: 18px;
+  background-color: #111;
+  border-radius: 12px;
   overflow: hidden;
-  width: 100%;
-  max-width: 340px;
-  box-shadow: 0 0 12px rgba(255, 0, 150, 0.3);
+  text-align: left;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 350px;
 }
 
 .hardware-item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(255, 0, 150, 0.5);
+  box-shadow: 0 8px 20px rgba(255, 64, 129, 0.3);
 }
 
 .hardware-item img {
   width: 100%;
-  height: 220px; /* or whatever matches your Projects section */
-  object-fit: cover; /* crops to fill the box evenly */
-  border-bottom: 2px solid #ff0099;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
-
-.hardware-info {
-  padding: 20px 25px 30px 25px;
-  text-align: left;
-}
-
-.hardware-info h3 {
-  color: #ff66cc;
-  font-size: 1.3rem;
+.hardware-item h3 {
+  color: #fff;
   margin-bottom: 10px;
+  font-size: 1.1em;
 }
 
-.hardware-info p {
+.hardware-item p {
   color: #ccc;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.95em;
+  line-height: 1.5em;
 }
-.container {
-  width: 90%;          
-  max-width: 1200px;   
-  margin: auto;        
-  padding: 0 20px;     
-}
+
+
+    
+
 
         /* Photography Section */
         .photo-intro {
@@ -663,32 +666,42 @@
             </div>
         </div>
     </section>
-<!-- Project 1 -->
-<div class="hardware-item">
-  <img src="drone.jpg" alt="CSE461: Introduction to Robotics — Drone Project" />
-  <div class="hardware-info">
-    <h3>CSE461: Introduction to Robotics</h3>
-    <p>This drone demonstrates autonomous flight control and obstacle avoidance using embedded sensors. Built for precision, stability, and a touch of sky-level swagger.</p>
-  </div>
-</div>
 
-<!-- Project 2 -->
-<div class="hardware-item">
-  <img src="farm.jpg" alt="Poultry Farm Automation Project" />
-  <div class="hardware-info">
-    <h3>Poultry Farm Automation</h3>
-    <p>An IoT-driven system that monitors and automates temperature, humidity, and feeding — keeping poultry farms efficient, smart, and sustainable.</p>
-  </div>
-</div>
+<section id="hardware-projects">
+  <div class="container">
+    <div class="hardware-intro">
+      <h2>// Hardware Projects</h2>
+      <p class="hardware-punchline">"Turning circuits and sensors into real-world magic."</p>
+    </div>
 
-<!-- Project 3 -->
-<div class="hardware-item">
-  <img src="digital.jpg" alt="CSE350: Digital Electronics and Pulse Techniques Project" />
-  <div class="hardware-info">
-    <h3>CSE350: Digital Electronics and Pulse Techniques</h3>
-    <p>Hands-on exploration of sequential circuits and pulse-shaping methods — showcasing how digital signals transform into real, measurable performance.</p>
+    <div class="hardware-grid">
+      <div class="hardware-item">
+        <img src="drone.jpg" alt="Drone Project">
+        <h3>CSE461: Introduction to Robotics</h3>
+        <p>This autonomous drone blends precise control and intelligent sensing — built to explore the world from above with stability and speed.</p>
+      </div>
+
+      <div class="hardware-item">
+        <img src="farm.jpg" alt="Poultry Farm Project">
+        <h3>Poultry Farm Automation</h3>
+        <p>A smart poultry farm that monitors temperature, humidity, and feeding automatically — designed to simplify farming with embedded tech.</p>
+      </div>
+
+      <div class="hardware-item">
+        <img src="digital.jpg" alt="Digital Electronics Project">
+        <h3>CSE350: Digital Electronics and Pulse Techniques</h3>
+        <p>A hands-on circuit project exploring logic gates and pulse systems — showing how electronics become the heartbeat of modern machines.</p>
+      </div>
+
+      <div class="hardware-item">
+        <img src="https://imgur.com/F1hrWw8.jpg" alt="Digital Logic Design Project">
+        <h3>CSE260: Digital Logic Design</h3>
+        <p>Building digital circuits from the ground up — where logic gates meet creativity to form the foundation of every computing system.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
 
       <!-- Project 4 -->
       <div class="hardware-item">
