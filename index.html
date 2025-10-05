@@ -884,6 +884,34 @@ document.addEventListener('mousemove', e => {
 document.addEventListener('mouseleave', () => {
     cursor.style.opacity = 0;
 });
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+for(let i=0; i<100; i++) {
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2,
+        speed: Math.random()*0.5
+    });
+}
+
+function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(255,0,110,0.7)';
+        ctx.fill();
+        p.y -= p.speed;
+        if(p.y<0) p.y = canvas.height;
+    });
+    requestAnimationFrame(animate);
+}
+animate();
 
     </script>
   <footer style="
