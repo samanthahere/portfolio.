@@ -413,11 +413,13 @@
 
 .hardware-item img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  height: auto; /* adjusts based on image */
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  background-color: #000; /* optional: fills the empty space behind */
 }
+
 
 .hardware-item h3 {
   color: #fff;
