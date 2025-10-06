@@ -1235,6 +1235,27 @@ function toggleMenu() {
 ">
     © 2025 Samantha. All rights reserved.
 </footer>
+<script>
+function toggleMenu() {
+  const menu = document.querySelector('.nav-links');
+  const icon = document.querySelector('.menu-icon');
+  
+  menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  
+  // animation
+  if (menu.style.display === "flex") {
+    setTimeout(() => {
+      menu.style.opacity = "1";
+      menu.style.transform = "translateY(0)";
+    }, 10);
+  } else {
+    menu.style.opacity = "0";
+    menu.style.transform = "translateY(-20px)";
+  }
+
+  icon.classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
