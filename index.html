@@ -896,6 +896,15 @@ body::before {
     background-position: 0% 100%, 100% 0%, 0% 50%;
   }
 }
+#rippleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(circle at center, #1a001a, #000000);
+}
 
     
     
@@ -904,7 +913,9 @@ body::before {
     <canvas id="bg"></canvas>
 
 <body>
-<nav id="navbar">
+<canvas id="rippleCanvas"></canvas>
+
+  <nav id="navbar">
   <div class="nav-container">
     <div class="logo">Samantha</div>
     <div class="menu-icon" onclick="toggleMenu()">
@@ -1353,6 +1364,46 @@ const createWave = () => {
   animate();
 };
 createWave();
+</script>
+<script>
+const canvas = document.getElementById("rippleCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let ripples = [];
+
+function createRipple(x, y) {
+  ripples.push({ x, y, radius: 0, alpha: 0.4 });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < ripples.length; i++) {
+    const r = ripples[i];
+    ctx.beginPath();
+    ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, 105, 180, ${r.alpha})`; // pink glow
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    r.radius += 2.5;
+    r.alpha -= 0.008;
+    if (r.alpha <= 0) ripples.splice(i, 1);
+  }
+  requestAnimationFrame(draw);
+}
+
+canvas.addEventListener("mousemove", e => createRipple(e.clientX, e.clientY));
+canvas.addEventListener("touchmove", e => {
+  const touch = e.touches[0];
+  createRipple(touch.clientX, touch.clientY);
+});
+
+draw();
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
