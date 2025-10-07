@@ -862,6 +862,43 @@ button, a, nav {
             transition: opacity 0.3s;
             z-index: 9999;
         }
+   body {
+  position: relative;
+  overflow: hidden;
+}
+
+/* watery animated gradient */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 20%, #ff1493, transparent 40%),
+              radial-gradient(circle at 80% 80%, #1e90ff, transparent 40%),
+              radial-gradient(circle at 50% 50%, #ff66a3, transparent 40%);
+  background-blend-mode: screen;
+  filter: blur(80px);
+  animation: waterMove 12s ease-in-out infinite alternate;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+@keyframes waterMove {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+  }
+  50% {
+    background-position: 100% 0%, 0% 100%, 50% 0%;
+  }
+  100% {
+    background-position: 0% 100%, 100% 0%, 0% 50%;
+  }
+}
+
+    
+    
     </style>
 </head>
     <canvas id="bg"></canvas>
@@ -1283,6 +1320,39 @@ function toggleMenu() {
 
   icon.classList.toggle("active");
 }
+</script>
+<script>
+const createWave = () => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  document.body.prepend(canvas);
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.zIndex = -2;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.opacity = '0.3';
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let t = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    for (let x = 0; x < canvas.width; x++) {
+      let y = 50 * Math.sin(x * 0.01 + t) + 50 * Math.sin(x * 0.02 + t / 2);
+      ctx.lineTo(x, canvas.height / 2 + y / 3);
+    }
+    ctx.strokeStyle = 'rgba(173,216,230,0.2)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    t += 0.02;
+    requestAnimationFrame(animate);
+  }
+  animate();
+};
+createWave();
 </script>
 
 </body>
