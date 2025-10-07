@@ -905,6 +905,15 @@ body::before {
   z-index: -1;
   background: radial-gradient(circle at center, #1a001a, #000000);
 }
+#liquidBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(135deg, #000000, #1a001a);
+}
 
     
     
@@ -913,7 +922,9 @@ body::before {
     <canvas id="bg"></canvas>
 
 <body>
-<canvas id="rippleCanvas"></canvas>
+<canvas id="liquidBackground"></canvas>
+
+  
 
   <nav id="navbar">
   <div class="nav-container">
@@ -1332,79 +1343,82 @@ function toggleMenu() {
   icon.classList.toggle("active");
 }
 </script>
-<script>
-const createWave = () => {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  document.body.prepend(canvas);
-  canvas.style.position = 'fixed';
-  canvas.style.top = 0;
-  canvas.style.left = 0;
-  canvas.style.zIndex = -2;
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.opacity = '0.3';
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
 
-  let t = 0;
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    for (let x = 0; x < canvas.width; x++) {
-      let y = 50 * Math.sin(x * 0.01 + t) + 50 * Math.sin(x * 0.02 + t / 2);
-      ctx.lineTo(x, canvas.height / 2 + y / 3);
-    }
-    ctx.strokeStyle = 'rgba(173,216,230,0.2)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    t += 0.02;
-    requestAnimationFrame(animate);
-  }
-  animate();
-};
-createWave();
-</script>
+
+
 <script>
-const canvas = document.getElementById("rippleCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('liquidBackground');
+const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let ripples = [];
+let rippleMap = [], prevMap = [];
+const damping = 0.99;
 
-function createRipple(x, y) {
-  ripples.push({ x, y, radius: 0, alpha: 0.4 });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < ripples.length; i++) {
-    const r = ripples[i];
-    ctx.beginPath();
-    ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(255, 105, 180, ${r.alpha})`; // pink glow
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    r.radius += 2.5;
-    r.alpha -= 0.008;
-    if (r.alpha <= 0) ripples.splice(i, 1);
+function initMap() {
+  for (let i = 0; i < canvas.width * canvas.height; i++) {
+    rippleMap[i] = 0;
+    prevMap[i] = 0;
   }
-  requestAnimationFrame(draw);
 }
 
-canvas.addEventListener("mousemove", e => createRipple(e.clientX, e.clientY));
-canvas.addEventListener("touchmove", e => {
+function disturb(x, y, radius, power) {
+  for (let j = y - radius; j < y + radius; j++) {
+    for (let k = x - radius; k < x + radius; k++) {
+      if (j >= 0 && j < canvas.height && k >= 0 && k < canvas.width) {
+        const index = j * canvas.width + k;
+        rippleMap[index] += power;
+      }
+    }
+  }
+}
+
+function update() {
+  const newMap = [];
+  for (let i = canvas.width; i < canvas.width * (canvas.height - 1); i++) {
+    newMap[i] = (
+      (rippleMap[i - 1] +
+       rippleMap[i + 1] +
+       rippleMap[i - canvas.width] +
+       rippleMap[i + canvas.width]) / 2 - newMap[i]
+    ) * damping;
+  }
+  prevMap = rippleMap;
+  rippleMap = newMap;
+}
+
+function render() {
+  const image = ctx.createImageData(canvas.width, canvas.height);
+  for (let i = 0; i < rippleMap.length; i++) {
+    const shade = rippleMap[i] * 100 + 128;
+    image.data[i * 4] = shade;
+    image.data[i * 4 + 1] = shade * 0.4;
+    image.data[i * 4 + 2] = shade * 0.7;
+    image.data[i * 4 + 3] = 255;
+  }
+  ctx.putImageData(image, 0, 0);
+}
+
+function loop() {
+  update();
+  render();
+  requestAnimationFrame(loop);
+}
+
+canvas.addEventListener('mousemove', e => disturb(e.offsetX, e.offsetY, 3, 512));
+canvas.addEventListener('touchmove', e => {
   const touch = e.touches[0];
-  createRipple(touch.clientX, touch.clientY);
+  disturb(touch.clientX, touch.clientY, 3, 512);
 });
 
-draw();
-window.addEventListener("resize", () => {
+initMap();
+loop();
+
+window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  initMap();
 });
 </script>
-
 </body>
 </html>
