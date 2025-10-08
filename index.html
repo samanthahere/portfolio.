@@ -863,27 +863,12 @@ button, a, nav {
             z-index: 9999;
         }
    body {
-  position: relative;
-  overflow: hidden;
+  
+  overflow: auto;
 }
 
 /* watery animated gradient */
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 20%, #ff1493, transparent 40%),
-              radial-gradient(circle at 80% 80%, #1e90ff, transparent 40%),
-              radial-gradient(circle at 50% 50%, #ff66a3, transparent 40%);
-  background-blend-mode: screen;
-  filter: blur(80px);
-  animation: waterMove 12s ease-in-out infinite alternate;
-  z-index: -1;
-  opacity: 0.5;
-}
+
 
 @keyframes waterMove {
   0% {
@@ -911,7 +896,7 @@ body::before {
     
     </style>
 </head>
-    <canvas id="bg"></canvas>
+    
 
 <body>
 <canvas id="liquidBackground"></canvas>
