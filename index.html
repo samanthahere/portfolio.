@@ -882,14 +882,23 @@ button, a, nav {
   }
 }
 
+
 #liquidBackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background: linear-gradient(135deg, #000000, #1a001a);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+    background-size: 800% 800%;
+    animation: gradientShift 20s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
     
@@ -1307,6 +1316,43 @@ function toggleMenu() {
     © 2025 Samantha. All rights reserved.
 </footer>
 
+</script
+<script>
+const cursorTrail = [];
+const maxTrail = 12;
+
+document.addEventListener('mousemove', e => {
+    cursorTrail.push({x: e.clientX, y: e.clientY, opacity: 1});
+    if(cursorTrail.length > maxTrail) cursorTrail.shift();
+});
+
+function drawTrail() {
+    const ctx = document.getElementById('trailCanvas').getContext('2d');
+    ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+    cursorTrail.forEach((p, i) => {
+        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, (maxTrail - i), 0, Math.PI * 2);
+        ctx.fill();
+        p.opacity *= 0.8;
+    });
+    requestAnimationFrame(drawTrail);
+}
+
+// Add canvas for trail
+const canvas = document.createElement('canvas');
+canvas.id = 'trailCanvas';
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+canvas.style.position = 'fixed';
+canvas.style.top = '0';
+canvas.style.left = '0';
+canvas.style.pointerEvents = 'none';
+canvas.style.zIndex = '9999';
+document.body.appendChild(canvas);
+
+drawTrail();
 </script>
+
 </body>
 </html>
