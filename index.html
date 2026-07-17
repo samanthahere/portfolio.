@@ -1298,84 +1298,88 @@ button, a, nav {
     });
   </script>
 
-  <style>
-    body {
-      margin: 0;
-      background: #0a0a0a;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-    }
+ /* ===== PROFESSIONAL OVERRIDE PATCH ===== */
 
-    /* NAVBAR STYLES */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(10, 10, 10, 0.9);
-      padding: 1rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 2px solid #ff006e;
-    }
+:root {
+  --bg: #0b0f19;
+  --surface: #111827;
+  --primary: #3b82f6;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #1f2937;
+}
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #ff1493;
-    }
+/* GLOBAL */
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', sans-serif !important;
+}
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      transition: all 0.3s ease;
-    }
+/* REMOVE EXTRA EFFECTS */
+.animated-gradient,
+.particle {
+  display: none !important;
+}
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
+/* HEADINGS CLEAN */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text) !important;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
 
-    .nav-links a:hover {
-      color: #ff006e;
-    }
+/* TEXT */
+p {
+  color: var(--muted) !important;
+}
 
-    .menu-icon {
-      display: none;
-      font-size: 2rem;
-      cursor: pointer;
-      color: white;
-    }
+/* NAVBAR */
+nav {
+  background: rgba(17,24,39,0.85) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
 
-    /* MOBILE MENU */
-    @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        display: none;
-        opacity: 0;
-        transform: translateY(-20px);
-      }
+nav a {
+  color: var(--muted) !important;
+}
 
-      .nav-links.active {
-        display: flex;
-        opacity: 1;
-        transform: translateY(0);
-      }
+nav a:hover {
+  color: var(--primary) !important;
+}
 
-      .menu-icon {
-        display: block;
-      }
-    }
-  </style>
+/* SECTIONS → CARD STYLE */
+section, .container, .box, .card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* BUTTONS */
+button, .btn, a.button {
+  background: var(--primary) !important;
+  color: white !important;
+  border-radius: 8px;
+  border: none;
+  padding: 10px 18px;
+  transition: 0.2s;
+}
+
+button:hover, .btn:hover {
+  background: #2563eb !important;
+}
+
+/* LINKS */
+a {
+  color: var(--primary);
+}
+
+/* IMAGES */
+img {
+  border-radius: 10px;
+}
 </body>
 </html>
