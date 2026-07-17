@@ -1219,6 +1219,24 @@ button, a, nav {
 
 
   <body>
+    <section class="hero">
+
+  <div class="hero-left">
+    <h1>JOSEPH<br>JACK.</h1>
+  </div>
+
+  <div class="hero-right">
+    <p>- Introducing</p>
+    <h3>Software Developer,<br>based in Your City.</h3>
+    <p>I'm a passionate developer you’ll love working with...</p>
+    <a href="#">My story →</a>
+  </div>
+
+  <div class="hero-img">
+    <img src="your-image.png" alt="profile">
+  </div>
+
+</section>
   <header>
     <nav class="navbar">
       <div class="logo">Samantha</div>
@@ -1382,36 +1400,59 @@ a {
 img {
   border-radius: 10px;
 }
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 60px 80px;
+  background: #0b0f19;
+  gap: 40px;
+}
 
+/* LEFT TEXT BLOCK */
+.hero-left {
+  flex: 1;
+}
+
+.hero-left h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #ff2d8d; /* pink like your screenshot */
+}
+
+/* RIGHT TEXT */
+.hero-right {
+  flex: 1;
+  max-width: 400px;
+}
+
+.hero-right h3 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.hero-right p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #9ca3af;
+}
+
+/* IMAGE FIX */
+.hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img img {
+  height: 450px;
+  max-width: 100%;
+  object-fit: contain;
+}
 </style>
 }
-<section class="hero">
-  <div class="hero-left">
-    <h1>Joseph<br>Jack.</h1>
-    <div class="underline"></div>
 
-    <div class="socials">
-      <a href="#">🌐</a>
-      <a href="#">📷</a>
-      <a href="#">💼</a>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <p class="intro">- Introducing</p>
-    <h3>Software Developer,<br>based in Your City.</h3>
-    <p class="desc">
-      I'm a passionate developer you’ll love working with.
-      If you have a great project that needs amazing skills,
-      I’m your guy.
-    </p>
-
-    <a href="#" class="story">My story →</a>
-  </div>
-
-  <div class="hero-img">
-    <img src="your-image.png" alt="profile">
-  </div>
-</section>
 </body>
 </html>
